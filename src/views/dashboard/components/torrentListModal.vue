@@ -1,5 +1,12 @@
 <template>
-  <a-modal hide-cancel closable v-model:visible="visible" @ok="handleOk" draggable width="auto">
+  <a-modal
+    hide-cancel
+    closable
+    v-model:visible="visible"
+    @ok="handleOk"
+    draggable
+    :modal-style="{ 'max-width': '100vw' }"
+  >
     <template #title> {{ t('page.dashboard.torrentList.title') }} </template>
     <a-table
       :columns="columns"

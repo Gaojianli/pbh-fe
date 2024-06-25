@@ -8,8 +8,14 @@
     "
     unmountOnClose
     @before-ok="handleBeforeOk"
+    :modal-style="{ 'max-width': '80vw' }"
   >
-    <a-form ref="formRef" :model="form" :rules="rules">
+    <a-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      :layout="(['vertical', 'horizontal'] as const)[formLayout]"
+    >
       <a-form-item field="ruleId" label="ID">
         <a-input v-model="form.ruleId" :disabled="!newItem" allow-clear />
         <template #extra>{{ t('page.ruleSubscribe.editModal.form.id.extra') }} </template>
@@ -36,6 +42,7 @@ import type { ruleBrief } from '@/api/model/ruleSubscribe'
 import { useI18n } from 'vue-i18n'
 import { reactive, ref } from 'vue'
 import { Message, type FieldRule, type Form } from '@arco-design/web-vue'
+import { useResponsiveState } from '@arco-design/web-vue/es/grid/hook/use-responsive-state'
 import { AddRuleItem, UpdateRuleItem } from '@/service/ruleSubscribe'
 import path from 'path'
 const { t } = useI18n()
@@ -123,4 +130,11 @@ const handleUrlChange = (value: string) => {
     }
   }
 }
+
+const formLayout = useResponsiveState(
+  ref({
+    md: 1
+  }),
+  0
+)
 </script>

@@ -3,7 +3,7 @@
     v-model:visible="showModal"
     :title="t('page.ruleSubscribe.updateLog')"
     unmountOnClose
-    :modal-style="{ width: '35vw' }"
+    :modal-style="{ 'max-width': '100vw' }"
   >
     <a-table
       :stripe="true"

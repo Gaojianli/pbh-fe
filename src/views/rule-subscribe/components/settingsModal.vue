@@ -3,10 +3,10 @@
     v-model:visible="showModal"
     :title="t('page.ruleSubscribe.settingsModal.title')"
     unmountOnClose
-    :modal-style="{ width: '35vw' }"
+    :modal-style="{ 'max-width': '80vw' }"
     @before-ok="handleBeforeOk"
   >
-    <a-form :model="form">
+    <a-form :model="form" :layout="(['vertical', 'horizontal'] as const)[formLayout]">
       <a-form-item
         field="checkInterval"
         :label="t('page.ruleSubscribe.settingsModal.checkInterval')"
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import { GetCheckInvervalSettings, SetCheckInterval } from '@/service/ruleSubscribe'
 import { Message } from '@arco-design/web-vue'
+import { useResponsiveState } from '@arco-design/web-vue/es/grid/hook/use-responsive-state'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRequest } from 'vue-request'
@@ -98,4 +99,11 @@ const handleBeforeOk = async () => {
   Message.error(result.message)
   return false
 }
+
+const formLayout = useResponsiveState(
+  ref({
+    md: 1
+  }),
+  0
+)
 </script>
